@@ -9,10 +9,17 @@
 ros::NodeHandle  nh;
 
 void messageCb( const turtlesim::Velocity& vel){
-  digitalWrite(13, HIGH-digitalRead(13));   // blink the led
+  if (vel.linear==2.0){
+    digitalWrite(13, HIGH);   // blink the led
+  }else
+  {
+    digitalWrite(13, LOW);
+  }
+    
+  
 }
 
-ros::Subscriber<std_msgs::Empty> sub("toggle_led", &messageCb );
+ros::Subscriber<turtlesim::Velocity> sub("turtle1/command_velocity", &messageCb );
 
 void setup()
 { 
